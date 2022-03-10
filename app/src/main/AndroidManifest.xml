@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartVenda">
         <activity
+            android:name=".activities.AddSale"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Sales"
+            android:exported="false"
+            android:label="@string/title_activity_sales"
+            android:theme="@style/Theme.SmartVenda.NoActionBar" />
+        <activity
             android:name=".activities.RegisterUser"
             android:exported="false" />
         <activity

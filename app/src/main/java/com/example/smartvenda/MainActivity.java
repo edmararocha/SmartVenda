@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.smartvenda.activities.RegisterUser;
+import com.example.smartvenda.activities.Sales;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!userText.isEmpty() && !passwordText.isEmpty()) {
                     Log.i("Info", "user: " + user.getText().toString());
+
+                    Intent intent = new Intent(getApplicationContext(), Sales.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
                 }
