@@ -61,9 +61,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="72dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buyer_text">
 
@@ -77,6 +78,7 @@
                     android:hint="cpf"
                     android:inputType="number"
                     android:textSize="18sp" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -118,8 +120,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="usuário"
-                    android:inputType="text"
+                    android:hint="valor da compra"
+                    android:inputType="numberDecimal"
                     android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +144,7 @@
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="valor pago"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +165,7 @@
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="troco"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
