@@ -4,19 +4,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.smartvenda.MainActivity;
 import com.example.smartvenda.adapters.SaleAdapter;
 import com.example.smartvenda.helpers.RecyclerItemClickListener;
 import com.example.smartvenda.model.Sale;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -25,11 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartvenda.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlinx.coroutines.scheduling.Task;
 
 public class Sales extends AppCompatActivity {
 
@@ -48,24 +42,26 @@ public class Sales extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-//        recyclerView.addOnItemTouchListener(
-//                new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(View view, int position) {
-//                        Sale saleSelected = salesList.get(position);
-//
-//                        Intent intent = new Intent(Sales.this, AddSale.class);
-//
-//                        startActivity(intent);
-//                    }
-//
-//                    @Override
-//                    public void onLongItemClick(View view, int position) { }
-//
-//                    @Override
-//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) { }
-//                })
-//        );
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Sale saleSelected = salesList.get(position);
+
+                        Intent intent = new Intent(Sales.this, SaleDetail.class);
+
+                        startActivity(intent);
+
+                        finish();
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) { }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) { }
+                })
+        );
 
         FloatingActionButton fab = findViewById(R.id.fab);
 

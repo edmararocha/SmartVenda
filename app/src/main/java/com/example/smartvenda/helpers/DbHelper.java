@@ -21,7 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
         // Criando tabela users
 
-        /* String sqlUsers = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIOS +
+        String sqlUsers = "CREATE TABLE IF NOT EXISTS " + TABELA_USUARIOS +
                 " (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario VARCHAR(25) NOT NULL, email TEXT NOT NULL, senha VARCHAR(20) NOT NULL); ";
 
         try {
@@ -40,7 +40,7 @@ public class DbHelper extends SQLiteOpenHelper {
             Log.i("INFO DB", "[+] Sucesso ao criar a tabela VENDAS");
         } catch (Exception e) {
             Log.i("INFO DB", "[-] Erro ao criar o banco de dados - " + e.getMessage());
-        } */
+        }
     }
 
     @Override
