@@ -1,0 +1,7 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke
+        android:color="@color/granny_smith_apple"
+        android:width="1.5dp"
+        />
+    <corners android:radius="8dp"/>
+</shape>

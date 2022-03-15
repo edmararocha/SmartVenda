@@ -1,5 +1,303 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddSale">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_main"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="40dp"
+                android:text="Cadastre sua venda"
+                android:textAlignment="center"
+                android:textColor="@color/brunswick_green"
+                android:textSize="38sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout_buyer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:baselineAligned="true"
+                android:orientation="vertical"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_main">
+
+                <TextView
+                    android:id="@+id/buyer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="28dp"
+                    android:gravity="center_vertical"
+                    android:text="Nome do comprador:"
+                    android:textColor="@color/moss_green"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/buyer_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/textedit"
+                    android:gravity="center_vertical"
+                    android:hint="José Silva"
+                    android:inputType="text"
+                    android:padding="14dp"
+                    android:textColorHighlight="@color/brunswick_green" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_cpf_buyer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:baselineAligned="true"
+                android:orientation="vertical"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_buyer">
+
+                <TextView
+                    android:id="@+id/cpf_buyer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="28dp"
+                    android:gravity="center_vertical"
+                    android:text="CPF do comprador:"
+                    android:textColor="@color/moss_green"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/cpf_buyer_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/textedit"
+                    android:gravity="center_vertical"
+                    android:hint="000.000.000-00"
+                    android:inputType="number|numberDecimal"
+                    android:padding="14dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:baselineAligned="true"
+                android:orientation="vertical"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_cpf_buyer">
+
+                <TextView
+                    android:id="@+id/description_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="28dp"
+                    android:gravity="center_vertical"
+                    android:text="Descrição da venda:"
+                    android:textColor="@color/moss_green"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/description_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/textedit"
+                    android:gravity="center_vertical"
+                    android:hint="- 1kg de arroz branco \n - 2 unid. feijão \n - 5 laranjas \n - 4 maçãs"
+                    android:inputType="textMultiLine"
+                    android:padding="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_value_sale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:baselineAligned="true"
+                android:orientation="vertical"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_description">
+
+                <TextView
+                    android:id="@+id/value_sale_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="28dp"
+                    android:gravity="center_vertical"
+                    android:text="Valor da compra (R$):"
+                    android:textColor="@color/moss_green"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/value_sale_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/textedit"
+                    android:gravity="center_vertical"
+                    android:hint="00,00"
+                    android:inputType="numberDecimal"
+                    android:padding="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_value_paid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:baselineAligned="true"
+                android:orientation="vertical"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_value_sale">
+
+                <TextView
+                    android:id="@+id/value_paid_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="28dp"
+                    android:gravity="center_vertical"
+                    android:text="Valor pago (R$):"
+                    android:textColor="@color/moss_green"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/value_paid_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/textedit"
+                    android:gravity="center_vertical"
+                    android:hint="00,00"
+                    android:inputType="numberDecimal"
+                    android:padding="14dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout_thing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:baselineAligned="true"
+                android:orientation="vertical"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_value_paid">
+
+                <TextView
+                    android:id="@+id/thing_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="28dp"
+                    android:gravity="center_vertical"
+                    android:text="Troco (R$):"
+                    android:textColor="@color/moss_green"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/thing_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/textedit"
+                    android:gravity="center_vertical"
+                    android:hint="00,00"
+                    android:inputType="numberDecimal"
+                    android:padding="14dp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/register_sale_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/moss_green"
+                android:text="Cadastrar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_thing" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+<!-- <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -83,7 +381,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/description_text"
-                android:layout_width="379dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -129,9 +427,8 @@
                 android:id="@+id/value_paid_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="48dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sale_value_text">
@@ -152,10 +449,9 @@
                 android:id="@+id/thing_text"
                 android:layout_width="379dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/value_paid_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/value_paid_text">
+                app:layout_constraintStart_toEndOf="@+id/value_paid_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/thing_input"
@@ -185,4 +481,4 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout> -->
