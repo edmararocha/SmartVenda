@@ -33,7 +33,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
         String sqlSales = "CREATE TABLE IF NOT EXISTS " + TABELA_VENDAS +
-                " (id INTEGER PRIMARY KEY AUTOINCREMENT, comprador VARCHAR(25) NOT NULL, cpf INT(11) NOT NULL, descricao TEXT, valorDaCompra INT NOT NULL, valorPago INT NOT NULL, troco INT); ";
+                " (id INTEGER PRIMARY KEY AUTOINCREMENT, comprador VARCHAR NOT NULL, cpf VARCHAR NOT NULL, descricao TEXT, valorDaCompra VARCHAR NOT NULL, valorPago VARCHAR NOT NULL, troco VARCHAR NOT NULL); ";
 
         try {
             db.execSQL(sqlSales);
@@ -44,7 +44,5 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-    }
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) { }
 }

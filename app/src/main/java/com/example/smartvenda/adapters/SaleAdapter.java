@@ -35,7 +35,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.MyViewHolder> 
 
         holder.buyer.setText(sale.getBuyer());
 
-        String price = "R$" + String.valueOf(sale.getValue());
+        String price = "R$ " + sale.getValue();
         holder.value.setText(price);
     }
 

@@ -1,4 +1,4 @@
-package com.example.smartvenda.helpers;
+package com.example.smartvenda.utils;
 
 import android.content.Context;
 import android.view.GestureDetector;

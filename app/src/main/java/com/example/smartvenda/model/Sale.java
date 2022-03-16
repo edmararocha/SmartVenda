@@ -1,12 +1,13 @@
 package com.example.smartvenda.model;
 
 public class Sale {
+    private Long id;
     private String buyer;
-    private int cpf;
+    private String cpf;
     private String description;
-    private float value;
-    private int valuePaid;
-    private int thing;
+    private String value;
+    private String valuePaid;
+    private String thing;
 
     public String getBuyer() {
         return buyer;
@@ -16,11 +17,11 @@ public class Sale {
         this.buyer = buyer;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -32,27 +33,33 @@ public class Sale {
         this.description = description;
     }
 
-    public float getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
+    public void setValue(String value) { this.value = value; }
 
-    public int getValuePaid() {
+    public String getValuePaid() {
         return valuePaid;
     }
 
-    public void setValuePaid(int valuePaid) {
+    public void setValuePaid(String valuePaid) {
         this.valuePaid = valuePaid;
     }
 
-    public int getThing() {
+    public String getThing() {
         return thing;
     }
 
-    public void setThing(int thing) {
+    public void setThing(String thing) {
         this.thing = thing;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

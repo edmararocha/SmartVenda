@@ -236,59 +236,18 @@
                     android:padding="14dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout_thing"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:baselineAligned="true"
-                android:orientation="vertical"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout_value_paid">
-
-                <TextView
-                    android:id="@+id/thing_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="18dp"
-                    android:layout_marginStart="28dp"
-                    android:gravity="center_vertical"
-                    android:text="Troco (R$):"
-                    android:textColor="@color/moss_green"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/thing_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="18dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
-                    android:background="@drawable/textedit"
-                    android:gravity="center_vertical"
-                    android:hint="00,00"
-                    android:inputType="numberDecimal"
-                    android:padding="14dp" />
-
-            </LinearLayout>
-
             <Button
                 android:id="@+id/register_sale_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/moss_green"
+                android:backgroundTint="@color/brunswick_green"
                 android:text="Cadastrar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout_thing" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout_value_paid" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

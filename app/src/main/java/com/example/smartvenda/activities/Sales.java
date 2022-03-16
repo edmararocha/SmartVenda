@@ -1,16 +1,17 @@
 package com.example.smartvenda.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.smartvenda.adapters.SaleAdapter;
-import com.example.smartvenda.helpers.RecyclerItemClickListener;
+import com.example.smartvenda.helpers.SaleDAO;
+import com.example.smartvenda.utils.RecyclerItemClickListener;
 import com.example.smartvenda.model.Sale;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -50,6 +51,14 @@ public class Sales extends AppCompatActivity {
 
                         Intent intent = new Intent(Sales.this, SaleDetail.class);
 
+                        intent.putExtra("id", String.valueOf(saleSelected.getId()));
+                        intent.putExtra("buyer", String.valueOf(saleSelected.getBuyer()));
+                        intent.putExtra("cpf", String.valueOf(saleSelected.getCpf()));
+                        intent.putExtra("description", String.valueOf(saleSelected.getDescription()));
+                        intent.putExtra("valueSale", String.valueOf(saleSelected.getValue()));
+                        intent.putExtra("valuePaid", String.valueOf(saleSelected.getValuePaid()));
+                        intent.putExtra("thing", String.valueOf(saleSelected.getThing()));
+
                         startActivity(intent);
 
                         finish();
@@ -78,16 +87,9 @@ public class Sales extends AppCompatActivity {
 
     public void loadSalesList () {
 
-        Sale sale2 = new Sale();
-        sale2.setValue(30);
-        sale2.setBuyer("Joãozinho");
+        SaleDAO saleDAO = new SaleDAO(getApplicationContext());
+        salesList = saleDAO.list();
 
-        Sale sale3 = new Sale();
-        sale3.setValue(40);
-        sale3.setBuyer("Zezinho");
-
-        salesList.add(sale2);
-        salesList.add(sale3);
 
         saleAdapter = new SaleAdapter(salesList);
 
