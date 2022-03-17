@@ -48,12 +48,46 @@ public class SaleDAO implements ISaleDAO {
 
     @Override
     public boolean update(Sale sale) {
-        return false;
+
+        ContentValues cv = new ContentValues();
+        cv.put("comprador", sale.getBuyer());
+        cv.put("cpf", sale.getCpf());
+        cv.put("descricao", sale.getDescription());
+        cv.put("valorDaCompra", sale.getValue());
+        cv.put("valorPago", sale.getValuePaid());
+        cv.put("troco", sale.getThing());
+
+        try {
+
+            String[] args = {sale.getId()};
+            write.update(DbHelper.TABELA_VENDAS, cv,"id=?", args);
+            Log.i("INFO", "[+] Venda atualizada com sucesso!");
+
+        } catch (Exception e) {
+
+            Log.e("INFO", "[-] Erro ao atualizar venda - " + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public boolean delete(Sale sale) {
-        return false;
+
+        try {
+
+            String[] args = {sale.getId()};
+            write.delete(DbHelper.TABELA_VENDAS, "id=?", args);
+            Log.i("INFO", "[+] Venda removida com sucesso!");
+
+        } catch (Exception e) {
+
+            Log.e("INFO", "[-] Erro ao remover a venda - " + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override
@@ -68,7 +102,7 @@ public class SaleDAO implements ISaleDAO {
         while (cursor.moveToNext()) {
             Sale sale = new Sale();
 
-            @SuppressLint("Range") Long id = cursor.getLong(cursor.getColumnIndex("id"));
+            @SuppressLint("Range") String id = cursor.getString(cursor.getColumnIndex("id"));
             @SuppressLint("Range") String buyer = cursor.getString(cursor.getColumnIndex("comprador"));
             @SuppressLint("Range") String cpf = cursor.getString(cursor.getColumnIndex("cpf"));
             @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex("descricao"));

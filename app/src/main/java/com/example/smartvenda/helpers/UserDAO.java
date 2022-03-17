@@ -1,12 +1,16 @@
 package com.example.smartvenda.helpers;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.smartvenda.model.Sale;
 import com.example.smartvenda.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements IUserDAO{
@@ -51,6 +55,30 @@ public class UserDAO implements IUserDAO{
 
     @Override
     public List<User> list() {
-        return null;
+
+
+        List<User> users = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + DbHelper.TABELA_USUARIOS + " ;";
+
+        Cursor cursor = read.rawQuery(sql, null);
+
+        while (cursor.moveToNext()) {
+            User user = new User();
+
+            @SuppressLint("Range") Long id = cursor.getLong(cursor.getColumnIndex("id"));
+            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("usuario"));
+            @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex("senha"));
+            @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
+
+            user.setId(id);
+            user.setName(name);
+            user.setPassword(password);
+            user.setEmail(email);
+
+            users.add(user);
+        }
+
+        return users;
     }
 }

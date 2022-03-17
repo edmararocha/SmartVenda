@@ -11,21 +11,29 @@ import android.widget.Toast;
 
 import com.example.smartvenda.activities.RegisterUser;
 import com.example.smartvenda.activities.Sales;
+import com.example.smartvenda.helpers.SaleDAO;
+import com.example.smartvenda.helpers.UserDAO;
+import com.example.smartvenda.model.Sale;
+import com.example.smartvenda.model.User;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextInputEditText user;
+    private TextInputEditText userEditText;
     private TextInputEditText password;
     private Button btnLogin;
     private Button btnRegister;
+    private List<User> usersList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        user = findViewById(R.id.email_input);
+        userEditText = findViewById(R.id.email_input);
 
         password = findViewById(R.id.password_input);
 
@@ -37,15 +45,39 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String userText = user.getText().toString();
+                String userText = userEditText.getText().toString();
 
                 String passwordText = password.getText().toString();
 
                 if (!userText.isEmpty() && !passwordText.isEmpty()) {
-                    Log.i("Info", "user: " + user.getText().toString());
 
-                    Intent intent = new Intent(getApplicationContext(), Sales.class);
-                    startActivity(intent);
+                    UserDAO userDAO = new UserDAO(getApplicationContext());
+                    usersList = userDAO.list();
+
+                    User user = new User();
+
+                    boolean userExists = false;
+
+                    for (int i = 0; i < usersList.size(); i++) {
+
+                        if (usersList.get(i).getName().equals(userText)) {
+                            userExists = true;
+                            user.setPassword(usersList.get(i).getPassword());
+                        }
+                    }
+
+                    if (userExists) {
+                        if (user.getPassword().equals(passwordText)) {
+                            Intent intent = new Intent(getApplicationContext(), Sales.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Senha incorreta!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "O usuário inserido não existe.", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
                 }
@@ -59,6 +91,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

@@ -15,14 +15,11 @@ import android.widget.Toast;
 
 import com.example.smartvenda.R;
 import com.example.smartvenda.helpers.SaleDAO;
-import com.example.smartvenda.helpers.UserDAO;
 import com.example.smartvenda.model.Sale;
-import com.example.smartvenda.model.User;
 import com.example.smartvenda.utils.MaskEditUtil;
 import com.example.smartvenda.utils.MoneyTextWatcher;
-import com.google.android.material.textfield.TextInputEditText;
 
-import org.w3c.dom.Text;
+import java.io.Serializable;
 
 public class AddSale extends AppCompatActivity {
 
@@ -32,6 +29,7 @@ public class AddSale extends AppCompatActivity {
     private EditText valueSale;
     private EditText valuePaid;
     private Button btnRegister;
+    private Sale atualSale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +47,12 @@ public class AddSale extends AppCompatActivity {
         cpf.addTextChangedListener(MaskEditUtil.mask(cpf, MaskEditUtil.FORMAT_CPF));
         valueSale.addTextChangedListener(new MoneyTextWatcher(valueSale));
         valuePaid.addTextChangedListener(new MoneyTextWatcher(valuePaid));
+
+        atualSale = (Sale) getIntent().getSerializableExtra("sale");
+
+        if (atualSale != null) {
+            buyer.setText(atualSale.getBuyer());
+        }
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,14 +76,14 @@ public class AddSale extends AppCompatActivity {
                     sale.setValue(valueSaleText);
                     sale.setValuePaid(valuePaidText);
 
-                    int valueSale = Integer.parseInt(MaskEditUtil.unmask(sale.getValue()));
-                    valueSale = (int) (valueSale*0.01);
-                    int valuePaid = Integer.parseInt(MaskEditUtil.unmask(sale.getValuePaid()));
-                    valuePaid = (int) (valuePaid*0.01);
+                    float valueSale = Integer.parseInt(MaskEditUtil.unmask(sale.getValue()));
+                    valueSale = (float) (valueSale*0.01);
+                    float valuePaid = Integer.parseInt(MaskEditUtil.unmask(sale.getValuePaid()));
+                    valuePaid = (float) (valuePaid*0.01);
 
-                    int thing = (valuePaid - valueSale);
+                    float thing = (valuePaid - valueSale);
 
-                    sale.setThing(String.valueOf(thing));
+                    sale.setThing(String.format("%.2f", thing));
 
                     Log.i("INFO VENDA", "value: " + valueSale + " | paid: " + valuePaid + " | thing: " + thing);
 

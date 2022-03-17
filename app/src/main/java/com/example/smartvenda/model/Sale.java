@@ -1,7 +1,9 @@
 package com.example.smartvenda.model;
 
-public class Sale {
-    private Long id;
+import java.io.Serializable;
+
+public class Sale implements Serializable {
+    private String id;
     private String buyer;
     private String cpf;
     private String description;
@@ -55,11 +57,11 @@ public class Sale {
         this.thing = thing;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

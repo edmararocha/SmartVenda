@@ -22,9 +22,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_id_detail"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,9 +58,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_buyer_detail"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,9 +94,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_cpf_buyer_detail"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,9 +130,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_description_detail"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -162,9 +170,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_value_sale_detail"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,9 +207,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_value_paid_detail"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -231,9 +243,11 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_thing_detail"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -262,4 +276,30 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintStart_toEndOf="@+id/textView" />
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/update_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/middle_green_yellow"
+        android:text="Editar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_thing_detail" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/brunswick_green"
+        android:text="apagar"
+        app:layout_constraintBaseline_toBaselineOf="@+id/update_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toEndOf="@+id/update_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

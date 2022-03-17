@@ -1,20 +1,24 @@
 package com.example.smartvenda.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.smartvenda.MainActivity;
 import com.example.smartvenda.adapters.SaleAdapter;
 import com.example.smartvenda.helpers.SaleDAO;
 import com.example.smartvenda.utils.RecyclerItemClickListener;
 import com.example.smartvenda.model.Sale;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -38,8 +42,6 @@ public class Sales extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_sales);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
 
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -65,7 +67,35 @@ public class Sales extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onLongItemClick(View view, int position) { }
+                    public void onLongItemClick(View view, int position) {
+                        selectedSale = salesList.get(position);
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(Sales.this);
+
+                        dialog.setTitle("Confirmar exclusão");
+                        dialog.setMessage("Deseja excluir essa venda?");
+
+                        dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SaleDAO saleDAO = new SaleDAO(getApplicationContext());
+
+                                if (saleDAO.delete(selectedSale)) {
+
+                                    loadSalesList();
+
+                                    Toast.makeText(getApplicationContext(), "Sucesso ao deletar venda!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Erro ao deletar venda!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                        dialog.setNegativeButton("Não", null);
+
+                        dialog.create();
+                        dialog.show();
+                    }
 
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) { }
