@@ -1,7 +1,9 @@
 package com.example.smartvenda.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartvenda.R;
@@ -48,75 +51,134 @@ public class AddSale extends AppCompatActivity {
         valueSale.addTextChangedListener(new MoneyTextWatcher(valueSale));
         valuePaid.addTextChangedListener(new MoneyTextWatcher(valuePaid));
 
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        ActionBar ab = getSupportActionBar();
+
+        ab.setDisplayHomeAsUpEnabled(true);
+
         atualSale = (Sale) getIntent().getSerializableExtra("sale");
 
         if (atualSale != null) {
             buyer.setText(atualSale.getBuyer());
-        }
+            cpf.setText(atualSale.getCpf());
+            descSale.setText(atualSale.getDescription());
+            valueSale.setText(atualSale.getValue());
+            valuePaid.setText(atualSale.getValuePaid());
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            mToolbar.setTitle("Edição de venda");
+            btnRegister.setText("Editar");
 
-                String buyerText = buyer.getText().toString();
-                String cpfText = cpf.getText().toString();
-                String descText = descSale.getText().toString();
-                String valueSaleText = valueSale.getText().toString();
-                String valuePaidText = valuePaid.getText().toString();
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                if (!buyerText.isEmpty() && !cpfText.isEmpty() && !descText.isEmpty() && !valueSaleText.isEmpty() && !valuePaidText.isEmpty()) {
-                    Log.i("Info", "buyer: " + buyer.getText().toString());
+                    String buyerText = buyer.getText().toString();
+                    String cpfText = cpf.getText().toString();
+                    String descText = descSale.getText().toString();
+                    String valueSaleText = valueSale.getText().toString();
+                    String valuePaidText = valuePaid.getText().toString();
 
-                    SaleDAO saleDAO = new SaleDAO(getApplicationContext());
+                    if (!buyerText.isEmpty() && !cpfText.isEmpty() && !descText.isEmpty() && !valueSaleText.isEmpty() && !valuePaidText.isEmpty()) {
 
-                    Sale sale = new Sale();
-                    sale.setBuyer(buyerText);
-                    sale.setCpf(cpfText);
-                    sale.setDescription(descText);
-                    sale.setValue(valueSaleText);
-                    sale.setValuePaid(valuePaidText);
+                        SaleDAO saleDAO = new SaleDAO(getApplicationContext());
 
-                    float valueSale = Integer.parseInt(MaskEditUtil.unmask(sale.getValue()));
-                    valueSale = (float) (valueSale*0.01);
-                    float valuePaid = Integer.parseInt(MaskEditUtil.unmask(sale.getValuePaid()));
-                    valuePaid = (float) (valuePaid*0.01);
+                        Sale saleEdit = new Sale();
+                        saleEdit.setId(atualSale.getId());
+                        saleEdit.setBuyer(buyerText);
+                        saleEdit.setCpf(cpfText);
+                        saleEdit.setDescription(descText);
+                        saleEdit.setValue(valueSaleText);
+                        saleEdit.setValuePaid(valuePaidText);
 
-                    float thing = (valuePaid - valueSale);
+                        float valueSale = Integer.parseInt(MaskEditUtil.unmask(saleEdit.getValue()));
+                        valueSale = (float) (valueSale*0.01);
+                        float valuePaid = Integer.parseInt(MaskEditUtil.unmask(saleEdit.getValuePaid()));
+                        valuePaid = (float) (valuePaid*0.01);
 
-                    sale.setThing(String.format("%.2f", thing));
+                        float thing = (valuePaid - valueSale);
 
-                    Log.i("INFO VENDA", "value: " + valueSale + " | paid: " + valuePaid + " | thing: " + thing);
+                        saleEdit.setThing(String.format("%.2f", thing));
 
-                    if (valuePaid < valueSale) {
-                        Toast.makeText(getApplicationContext(), "insira um valor válido!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        if (saleDAO.save(sale)) {
-                            Toast.makeText(getApplicationContext(), "Sucesso ao salvar venda!", Toast.LENGTH_SHORT).show();
+                        Log.i("INFO VENDA", "value: " + valueSale + " | paid: " + valuePaid + " | thing: " + thing);
 
-                            Intent intent = new Intent(getApplicationContext(), Sales.class);
-                            startActivity(intent);
-
-                            finish();
+                        if (valuePaid < valueSale) {
+                            Toast.makeText(getApplicationContext(), "insira um valor válido!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Erro ao salvar venda!", Toast.LENGTH_SHORT).show();
+                            if (saleDAO.update(saleEdit)) {
+                                Toast.makeText(getApplicationContext(), "Sucesso ao atualizar venda!", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(getApplicationContext(), Sales.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Erro ao atualizar venda!", Toast.LENGTH_SHORT).show();
+                            }
                         }
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
                     }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-    }
+            });
+        } else {
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_add_sale, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+                    String buyerText = buyer.getText().toString();
+                    String cpfText = cpf.getText().toString();
+                    String descText = descSale.getText().toString();
+                    String valueSaleText = valueSale.getText().toString();
+                    String valuePaidText = valuePaid.getText().toString();
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+                    if (!buyerText.isEmpty() && !cpfText.isEmpty() && !descText.isEmpty() && !valueSaleText.isEmpty() && !valuePaidText.isEmpty()) {
+                        Log.i("Info", "buyer: " + buyer.getText().toString());
+
+                        SaleDAO saleDAO = new SaleDAO(getApplicationContext());
+
+                        Sale sale = new Sale();
+                        sale.setBuyer(buyerText);
+                        sale.setCpf(cpfText);
+                        sale.setDescription(descText);
+                        sale.setValue(valueSaleText);
+                        sale.setValuePaid(valuePaidText);
+
+                        float valueSale = Integer.parseInt(MaskEditUtil.unmask(sale.getValue()));
+                        valueSale = (float) (valueSale*0.01);
+                        float valuePaid = Integer.parseInt(MaskEditUtil.unmask(sale.getValuePaid()));
+                        valuePaid = (float) (valuePaid*0.01);
+
+                        float thing = (valuePaid - valueSale);
+
+                        sale.setThing(String.format("%.2f", thing));
+
+                        Log.i("INFO VENDA", "value: " + valueSale + " | paid: " + valuePaid + " | thing: " + thing);
+
+                        if (valuePaid < valueSale) {
+                            Toast.makeText(getApplicationContext(), "insira um valor válido!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (saleDAO.save(sale)) {
+                                Toast.makeText(getApplicationContext(), "Sucesso ao salvar venda!", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(getApplicationContext(), Sales.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Erro ao salvar venda!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
     }
 }

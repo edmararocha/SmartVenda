@@ -1,7 +1,9 @@
 package com.example.smartvenda.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.smartvenda.MainActivity;
@@ -11,10 +13,13 @@ import com.example.smartvenda.utils.RecyclerItemClickListener;
 import com.example.smartvenda.model.Sale;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -37,6 +42,11 @@ public class Sales extends AppCompatActivity {
     private List<Sale> salesList = new ArrayList<>();
     private Sale selectedSale;
 
+    public static final String SHARED_PREFS = "shared_prefs";
+    public static final String USER_KEY = "user_key";
+    public static final String PASSWORD_KEY = "password_key";
+    SharedPreferences sharedpreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +55,11 @@ public class Sales extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -52,14 +67,7 @@ public class Sales extends AppCompatActivity {
                         Sale saleSelected = salesList.get(position);
 
                         Intent intent = new Intent(Sales.this, SaleDetail.class);
-
-                        intent.putExtra("id", String.valueOf(saleSelected.getId()));
-                        intent.putExtra("buyer", String.valueOf(saleSelected.getBuyer()));
-                        intent.putExtra("cpf", String.valueOf(saleSelected.getCpf()));
-                        intent.putExtra("description", String.valueOf(saleSelected.getDescription()));
-                        intent.putExtra("valueSale", String.valueOf(saleSelected.getValue()));
-                        intent.putExtra("valuePaid", String.valueOf(saleSelected.getValuePaid()));
-                        intent.putExtra("thing", String.valueOf(saleSelected.getThing()));
+                        intent.putExtra("sale", saleSelected);
 
                         startActivity(intent);
 
@@ -128,5 +136,30 @@ public class Sales extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
         recyclerView.setAdapter(saleAdapter);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.itemLog) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+
+            editor.clear();
+
+            editor.apply();
+
+            Intent i=new Intent(Sales.this,MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

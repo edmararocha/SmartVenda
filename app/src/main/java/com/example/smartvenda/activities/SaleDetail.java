@@ -1,7 +1,9 @@
 package com.example.smartvenda.activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,12 +19,6 @@ import com.example.smartvenda.R;
 import com.example.smartvenda.helpers.SaleDAO;
 import com.example.smartvenda.model.Sale;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import kotlinx.coroutines.scheduling.Task;
-
 public class SaleDetail extends AppCompatActivity {
 
     private TextView id;
@@ -34,6 +30,7 @@ public class SaleDetail extends AppCompatActivity {
     private TextView thing;
     private Button update;
     private Button delete;
+    private Sale sale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,22 +45,28 @@ public class SaleDetail extends AppCompatActivity {
         valuePaid = findViewById(R.id.value_paid_detail);
         thing = findViewById(R.id.thing_detail);
 
-        Intent intent = getIntent();
 
-        id.setText(intent.getStringExtra("id"));
-        buyer.setText(intent.getStringExtra("buyer"));
-        cpf.setText(intent.getStringExtra("cpf"));
-        description.setText(intent.getStringExtra("description"));
-        valueSale.setText(intent.getStringExtra("valueSale"));
-        valuePaid.setText(intent.getStringExtra("valuePaid"));
-        thing.setText(intent.getStringExtra("thing"));
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        ActionBar ab = getSupportActionBar();
+
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        sale = (Sale) getIntent().getSerializableExtra("sale");
+
+        id.setText(sale.getId());
+        buyer.setText(sale.getBuyer());
+        cpf.setText(sale.getCpf());
+        description.setText(sale.getDescription());
+        valueSale.setText(sale.getValue());
+        valuePaid.setText(sale.getValuePaid());
+        thing.setText(sale.getThing());
 
         update = findViewById(R.id.update_button);
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Sale sale = new Sale();
 
                 Intent intent = new Intent(SaleDetail.this, AddSale.class);
                 intent.putExtra("sale", sale);
@@ -100,6 +103,7 @@ public class SaleDetail extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Sucesso ao deletar venda!", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(getApplicationContext(), Sales.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             finish();
 

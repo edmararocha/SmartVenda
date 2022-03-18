@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.smartvenda.MainActivity;
 import com.example.smartvenda.R;
 import com.example.smartvenda.helpers.UserDAO;
 import com.example.smartvenda.model.User;
@@ -59,7 +60,8 @@ public class RegisterUser extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Erro ao salvar usuário!", Toast.LENGTH_SHORT).show();
                     }
 
-                    Intent intent = new Intent(getApplicationContext(), Sales.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 
                     finish();

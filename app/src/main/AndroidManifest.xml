@@ -11,10 +11,20 @@
         android:theme="@style/Theme.SmartVenda">
         <activity
             android:name=".activities.SaleDetail"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.Sales" />
+        </activity>
+
         <activity
             android:name=".activities.AddSale"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.Sales" />
+        </activity>
+
         <activity
             android:name=".activities.Sales"
             android:exported="false"

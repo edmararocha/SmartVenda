@@ -2,7 +2,9 @@ package com.example.smartvenda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private Button btnRegister;
     private List<User> usersList = new ArrayList<>();
 
+    public static final String SHARED_PREFS = "shared_prefs";
+    public static final String USER_KEY = "user_key";
+    public static final String PASSWORD_KEY = "password_key";
+
+    SharedPreferences sharedpreferences;
+    String userStr, passwordStr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.login_button);
 
         btnRegister = findViewById(R.id.register_button);
+
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+
+        userStr = sharedpreferences.getString(USER_KEY, null);
+        passwordStr = sharedpreferences.getString(PASSWORD_KEY, null);
+
+        Log.i("INFO SESSION" , "user - " + sharedpreferences.getString(USER_KEY, null));
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +84,14 @@ public class MainActivity extends AppCompatActivity {
 
                     if (userExists) {
                         if (user.getPassword().equals(passwordText)) {
+
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString(USER_KEY, userText);
+                            editor.putString(PASSWORD_KEY, passwordText);
+                            editor.apply();
+
                             Intent intent = new Intent(getApplicationContext(), Sales.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Senha incorreta!", Toast.LENGTH_SHORT).show();
@@ -91,5 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    protected void onStart() {
+        super.onStart();
+        if (userStr != null && passwordStr != null) {
+            Intent i = new Intent(MainActivity.this, Sales.class);
+            startActivity(i);
+        }
+
     }
 }

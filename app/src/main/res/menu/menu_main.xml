@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/itemSave"
-        android:title="Salvar"
+        android:id="@+id/itemLog"
+        android:title="Logout"
         app:showAsAction="always"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_check"
+        android:icon="@drawable/ic_login"
         />
 </menu>
