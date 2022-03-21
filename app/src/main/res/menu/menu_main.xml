@@ -8,4 +8,13 @@
         android:orderInCategory="100"
         android:icon="@drawable/ic_login"
         />
+
+    <item
+        android:id="@+id/itemUser"
+        android:title="Users"
+        app:showAsAction="always"
+        android:visible="false"
+        android:orderInCategory="10"
+        android:icon="@drawable/ic_user"
+        />
 </menu>

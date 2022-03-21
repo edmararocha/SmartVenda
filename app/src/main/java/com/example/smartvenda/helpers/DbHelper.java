@@ -31,6 +31,13 @@ public class DbHelper extends SQLiteOpenHelper {
             Log.i("INFO DB", "[-] Erro ao criar o banco de dados - " + e.getMessage());
         }
 
+        String sqlAdmin = "INSERT INTO " + TABELA_USUARIOS + "(usuario, email, senha) VALUES ('admin', 'admin@gmail.com', 'admin'); ";
+        try {
+            db.execSQL(sqlAdmin);
+            Log.i("INFO DB", "[+] Sucesso ao criar o usuario ADMIN");
+        } catch (Exception e) {
+            Log.i("INFO DB", "[-] Erro ao criar o usuario ADMIN - " + e.getMessage());
+        }
 
         String sqlSales = "CREATE TABLE IF NOT EXISTS " + TABELA_VENDAS +
                 " (id INTEGER PRIMARY KEY AUTOINCREMENT, comprador VARCHAR NOT NULL, cpf VARCHAR NOT NULL, descricao TEXT, valorDaCompra VARCHAR NOT NULL, valorPago VARCHAR NOT NULL, troco VARCHAR NOT NULL); ";

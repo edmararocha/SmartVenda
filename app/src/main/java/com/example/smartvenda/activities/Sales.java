@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,12 +54,18 @@ public class Sales extends AppCompatActivity {
 
         setContentView(R.layout.activity_sales);
 
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+
+        if (sharedpreferences == null || sharedpreferences.equals("")) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         recyclerView = findViewById(R.id.recyclerView);
 
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
-        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -117,6 +124,8 @@ public class Sales extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddSale.class);
                 startActivity(intent);
+
+
             }
         });
 
@@ -140,6 +149,16 @@ public class Sales extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        String userStr = sharedpreferences.getString(USER_KEY, null);
+        String passwordStr = sharedpreferences.getString(PASSWORD_KEY, null);
+
+
+        if (userStr.equals("admin") && passwordStr.equals("admin")) {
+            Log.i("INFO", "user is admin!");
+            menu.getItem(0).setVisible(true);
+        }
+
         return true;
     }
 
@@ -156,10 +175,24 @@ public class Sales extends AppCompatActivity {
             editor.apply();
 
             Intent i=new Intent(Sales.this,MainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            finish();
+        }
+
+        if (id == R.id.itemUser) {
+
+            Intent i=new Intent(Sales.this, Users.class);
             startActivity(i);
             finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }
