@@ -25,6 +25,7 @@ public class RegisterUser extends AppCompatActivity {
     private TextInputEditText password;
     private TextInputEditText email;
     private Button btnRegister;
+    private Button btnRemove;
     private User atualUser;
     private TextView textView;
 
@@ -43,6 +44,7 @@ public class RegisterUser extends AppCompatActivity {
         textView = findViewById(R.id.text_register);
 
         btnRegister = findViewById(R.id.register_button);
+        btnRemove = findViewById(R.id.remove_button);
 
         atualUser = (User) getIntent().getSerializableExtra("user");
 
@@ -53,6 +55,8 @@ public class RegisterUser extends AppCompatActivity {
 
             btnRegister.setText("Editar");
             textView.setText("Editar usuário");
+
+            btnRemove.setVisibility(View.VISIBLE);
 
             btnRegister.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,10 +76,10 @@ public class RegisterUser extends AppCompatActivity {
                         user.setPassword(passwordText);
                         user.setEmail(emailText);
 
-                        if (userDAO.save(user)) {
-                            Toast.makeText(getApplicationContext(), "Sucesso ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                        if (userDAO.update(user)) {
+                            Toast.makeText(getApplicationContext(), "Sucesso ao atualizar usuário!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Erro ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Erro ao atualizar usuário!", Toast.LENGTH_SHORT).show();
                         }
 
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
