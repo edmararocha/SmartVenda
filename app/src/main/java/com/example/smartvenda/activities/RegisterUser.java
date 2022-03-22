@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartvenda.MainActivity;
 import com.example.smartvenda.R;
+import com.example.smartvenda.helpers.SaleDAO;
 import com.example.smartvenda.helpers.UserDAO;
+import com.example.smartvenda.model.Sale;
 import com.example.smartvenda.model.User;
+import com.example.smartvenda.utils.MaskEditUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class RegisterUser extends AppCompatActivity {
@@ -21,6 +25,8 @@ public class RegisterUser extends AppCompatActivity {
     private TextInputEditText password;
     private TextInputEditText email;
     private Button btnRegister;
+    private User atualUser;
+    private TextView textView;
 
 
     @Override
@@ -34,41 +40,89 @@ public class RegisterUser extends AppCompatActivity {
 
         email = findViewById(R.id.email_input);
 
+        textView = findViewById(R.id.text_register);
+
         btnRegister = findViewById(R.id.register_button);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        atualUser = (User) getIntent().getSerializableExtra("user");
 
-                String userText = user.getText().toString();
-                String passwordText = password.getText().toString();
-                String emailText = email.getText().toString();
+        if (atualUser != null) {
+            user.setText(atualUser.getName());
+            email.setText(atualUser.getEmail());
+            password.setText(atualUser.getPassword());
 
-                if (!userText.isEmpty() && !passwordText.isEmpty() && !emailText.isEmpty()) {
-                    Log.i("Info", "user: " + user.getText().toString());
+            btnRegister.setText("Editar");
+            textView.setText("Editar usuário");
 
-                    UserDAO userDAO = new UserDAO(getApplicationContext());
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                    User user = new User();
-                    user.setName(userText);
-                    user.setPassword(passwordText);
-                    user.setEmail(emailText);
+                    String userText = user.getText().toString();
+                    String passwordText = password.getText().toString();
+                    String emailText = email.getText().toString();
 
-                    if (userDAO.save(user)) {
-                        Toast.makeText(getApplicationContext(), "Sucesso ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                    if (!userText.isEmpty() && !passwordText.isEmpty() && !emailText.isEmpty()) {
+                        Log.i("Info", "user: " + user.getText().toString());
+
+                        UserDAO userDAO = new UserDAO(getApplicationContext());
+
+                        User user = new User();
+                        user.setName(userText);
+                        user.setPassword(passwordText);
+                        user.setEmail(emailText);
+
+                        if (userDAO.save(user)) {
+                            Toast.makeText(getApplicationContext(), "Sucesso ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Erro ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+                        finish();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Erro ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
                     }
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
+        } else {
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    String userText = user.getText().toString();
+                    String passwordText = password.getText().toString();
+                    String emailText = email.getText().toString();
+
+                    if (!userText.isEmpty() && !passwordText.isEmpty() && !emailText.isEmpty()) {
+                        Log.i("Info", "user: " + user.getText().toString());
+
+                        UserDAO userDAO = new UserDAO(getApplicationContext());
+
+                        User user = new User();
+                        user.setName(userText);
+                        user.setPassword(passwordText);
+                        user.setEmail(emailText);
+
+                        if (userDAO.save(user)) {
+                            Toast.makeText(getApplicationContext(), "Sucesso ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Erro ao salvar usuário!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Preencha todos os campos, por favor.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
     }
 }

@@ -65,7 +65,7 @@ public class SaleDAO implements ISaleDAO {
 
         } catch (Exception e) {
 
-            Log.e("INFO", "[-] Erro ao atualizar venda - " + e.getMessage());
+            Log.e("INFO", "[-] Erro ao atualizar a venda - " + e.getMessage());
             return false;
         }
 

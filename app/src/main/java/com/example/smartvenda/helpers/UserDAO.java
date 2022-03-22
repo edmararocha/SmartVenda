@@ -45,12 +45,44 @@ public class UserDAO implements IUserDAO{
 
     @Override
     public boolean update(User user) {
-        return false;
+
+        ContentValues cv = new ContentValues();
+        cv.put("usuario", user.getName());
+        cv.put("email", user.getEmail());
+        cv.put("senha", user.getPassword());
+
+        try {
+
+            String[] args = {String.valueOf(user.getId())};
+            write.update(DbHelper.TABELA_USUARIOS, cv,"id=?", args);
+            Log.i("INFO", "[+] Usuário atualizado com sucesso!");
+
+        } catch (Exception e) {
+
+            Log.e("INFO", "[-] Erro ao atualizar o usuário - " + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public boolean delete(User user) {
-        return false;
+
+
+        try {
+
+            String[] args = {String.valueOf(user.getId())};
+            write.delete(DbHelper.TABELA_USUARIOS, "id=?", args);
+            Log.i("INFO", "[+] Usuário removido com sucesso!");
+
+        } catch (Exception e) {
+
+            Log.e("INFO", "[-] Erro ao remover o usuário - " + e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     @Override

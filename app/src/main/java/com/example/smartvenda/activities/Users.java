@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -113,6 +114,8 @@ public class Users extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) { }
                 })
         );
+
+        loadUserList();
     }
 
     public void loadUserList () {
@@ -123,11 +126,13 @@ public class Users extends AppCompatActivity {
 
         userAdapter = new UserAdapter(userList);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
         recyclerView.setAdapter(userAdapter);
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
